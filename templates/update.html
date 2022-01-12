@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block heade %}
+
+<title>update {{task.title}}</title>
+
+{% endblock %} {% block body %}
+
+<div class="task-add">
+    <form method="POST">
+        {{crf_token}}
+        <div class="mb-3">
+            <label for="title" class="form-label">وظیفه</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{task.title}}" placeholder="از ساعت هفت تا ساعت ده شیمی بخون">
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label"> شرح وظیفه </label>
+            <textarea class="form-control" id="body" name="body" rows="3">{{task.body}}</textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="آپدیت کردن وظیفه">
+</div>
+</form>
+{% endblock %}

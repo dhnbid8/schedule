@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block heade %}
+
+<title>task manager</title>
+
+{% endblock %} {% block body %} {% if massage %}
+<div class="alert alert-danger" role="alert">
+    {{massage}}
+</div>
+{% endif %}
+<br>
+<h1>لیست وظایف</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"> # </th>
+            <th scope="col">وظیفه</th>
+            <th scope="col">شرح وظیفه</th>
+            <th scope="col">وضعیت وظیفه</th>
+            <th scope="col">عملیات</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+
+        <tr>
+            <th scope="row">{{task.id}}</th>
+            <td>{{task.title}}</td>
+            <td>{{task.body}}</td>
+
+            {% if task.do == 0 %}
+            <td>انجام نشده </td>
+            {% else %}
+            <td>انجام شده</td>
+            {% endif %}
+
+            <td>
+                <a href="/delete/{{task.id}}"> <button type="button" class="btn btn-danger">حذف</button></a>
+                <a href="/update/{{task.id}}"> <button type="button" class="btn btn-info">ویرایش</button></a>
+                {% if task.do == 0 %}
+                <a href="/do/{{task.id}}"><button type="button" class="btn btn-success">انجام شد</button></a> {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<div class="task-add">
+    <form method="POST">
+        {{crf_token}}
+        <div class="mb-3">
+            <label for="title" class="form-label">وظیفه</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="از ساعت هفت تا ساعت ده شیمی بخون">
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label"> شرح وظیفه </label>
+            <textarea class="form-control" id="body" name="body" rows="3"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="اضافه کردن وظیفه">
+</div>
+</form>
+{% endblock %}
